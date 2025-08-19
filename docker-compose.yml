@@ -1,0 +1,154 @@
+version: '3.8'
+
+networks:
+  laravel:
+    driver: bridge
+
+services:
+  # Nginx Web Server
+  nginx:
+    build:
+      context: .
+      dockerfile: ./docker/nginx.dockerfile
+    container_name: hesabatlar_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./src:/var/www/html:cached
+    depends_on:
+      - php
+    networks:
+      - laravel
+
+  # PHP Application Container
+  php:
+    build:
+      context: .
+      dockerfile: docker/php.dockerfile
+    container_name: hesabatlar_php
+    restart: unless-stopped
+    volumes:
+      - ./src:/var/www/html:cached
+    working_dir: /var/www/html
+    networks:
+      - laravel
+    depends_on:
+      - mysql
+      - redis
+
+  # Laravel Horizon Queue Worker
+  horizon:
+    build:
+      context: .
+      dockerfile: docker/horizon.dockerfile
+    container_name: hesabatlar_horizon
+    restart: unless-stopped
+    volumes:
+      - ./src:/var/www/html:cached
+    working_dir: /var/www/html
+    networks:
+      - laravel
+    depends_on:
+      - php
+      - mysql
+      - redis
+
+  # Node.js/NPM Container
+  node:
+    build:
+      context: .
+      dockerfile: docker/node.dockerfile
+    container_name: hesabatlar_node
+    volumes:
+      - ./src:/var/www/html:cached
+    working_dir: /var/www/html
+    networks:
+      - laravel
+
+  # Composer Container
+  composer:
+    build:
+      context: .
+      dockerfile: docker/composer.dockerfile
+    container_name: hesabatlar_composer
+    volumes:
+      - ./src:/var/www/html:cached
+    working_dir: /var/www/html
+    networks:
+      - laravel
+
+  # MySQL Database
+  mysql:
+    image: mysql/mysql-server:8.0
+    container_name: hesabatlar_mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_DATABASE: '${DB_DATABASE}'
+      MYSQL_USER: '${DB_USERNAME}'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'no'
+    volumes:
+      - volume-mysql:/var/lib/mysql
+    networks:
+      - laravel
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
+      retries: 3
+      timeout: 5s
+      interval: 30s
+
+  # Redis Cache & Session Store
+  redis:
+    image: redis:7-alpine
+    container_name: hesabatlar_redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --requirepass "${REDIS_PASSWORD}"
+    volumes:
+      - volume-redis:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - laravel
+
+  # Laravel Artisan Commands
+  artisan:
+    build:
+      context: .
+      dockerfile: docker/php.dockerfile
+    container_name: hesabatlar_artisan
+    volumes:
+      - ./src:/var/www/html:cached
+    working_dir: /var/www/html
+    networks:
+      - laravel
+    depends_on:
+      - mysql
+      - redis
+    entrypoint: ["php", "/var/www/html/artisan"]
+
+  # Cron Scheduler
+  cron:
+    build:
+      context: .
+      dockerfile: docker/cron.dockerfile
+    container_name: hesabatlar_cron
+    restart: unless-stopped
+    volumes:
+      - ./src:/var/www/html:cached
+    working_dir: /var/www/html
+    networks:
+      - laravel
+    depends_on:
+      - php
+      - mysql
+      - redis
+volumes:
+  volume-mysql:
+    driver: local
+  volume-redis:
+    driver: local
