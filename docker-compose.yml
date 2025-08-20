@@ -16,7 +16,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./src:/var/www/html:cached
+      - ./../hesabatlar:/var/www/html:cached
     depends_on:
       - php
     networks:
@@ -30,7 +30,7 @@ services:
     container_name: hesabatlar_php
     restart: unless-stopped
     volumes:
-      - ./src:/var/www/html:cached
+      - ./../hesabatlar:/var/www/html:cached
     working_dir: /var/www/html
     networks:
       - laravel
@@ -46,7 +46,7 @@ services:
     container_name: hesabatlar_horizon
     restart: unless-stopped
     volumes:
-      - ./src:/var/www/html:cached
+      - ./../hesabatlar:/var/www/html:cached
     working_dir: /var/www/html
     networks:
       - laravel
@@ -62,7 +62,7 @@ services:
       dockerfile: docker/node.dockerfile
     container_name: hesabatlar_node
     volumes:
-      - ./src:/var/www/html:cached
+      - ./../hesabatlar:/var/www/html:cached
     working_dir: /var/www/html
     networks:
       - laravel
@@ -74,7 +74,7 @@ services:
       dockerfile: docker/composer.dockerfile
     container_name: hesabatlar_composer
     volumes:
-      - ./src:/var/www/html:cached
+      - ./../hesabatlar:/var/www/html:cached
     working_dir: /var/www/html
     networks:
       - laravel
@@ -122,7 +122,7 @@ services:
       dockerfile: docker/php.dockerfile
     container_name: hesabatlar_artisan
     volumes:
-      - ./src:/var/www/html:cached
+      - ./../hesabatlar:/var/www/html
     working_dir: /var/www/html
     networks:
       - laravel
@@ -139,7 +139,7 @@ services:
     container_name: hesabatlar_cron
     restart: unless-stopped
     volumes:
-      - ./src:/var/www/html:cached
+      - ./../hesabatlar:/var/www/html
     working_dir: /var/www/html
     networks:
       - laravel
