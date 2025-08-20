@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="ce1fd0f0-ed55-4a82-851f-b11b69579397" name="PROD">
-        <fileTransfer accessType="SFTP" host="62.171.142.148" port="22" sshConfigId="75d76fa7-95bf-4279-85c1-cf5cc09e553e" sshConfig="root@62.171.142.148:22 password">
+        <fileTransfer rootFolder="/root/hesabatlar-docker" accessType="SFTP" host="62.171.142.148" port="22" sshConfigId="75d76fa7-95bf-4279-85c1-cf5cc09e553e" sshConfig="root@62.171.142.148:22 password">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

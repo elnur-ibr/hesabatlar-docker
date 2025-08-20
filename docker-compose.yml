@@ -36,7 +36,7 @@ services:
       - laravel
     depends_on:
       - mysql
-      - redis
+#      - redis
 
   # Laravel Horizon Queue Worker
   horizon:
@@ -53,7 +53,7 @@ services:
     depends_on:
       - php
       - mysql
-      - redis
+#      - redis
 
   # Node.js/NPM Container
   node:
@@ -103,17 +103,19 @@ services:
       interval: 30s
 
   # Redis Cache & Session Store
-  redis:
-    image: redis:7-alpine
-    container_name: hesabatlar_redis
-    restart: unless-stopped
-    command: redis-server --appendonly yes --requirepass "${REDIS_PASSWORD}"
-    volumes:
-      - volume-redis:/data
-    ports:
-      - "6379:6379"
-    networks:
-      - laravel
+#  redis:
+#    image: redis:7-alpine
+#    container_name: hesabatlar_redis
+#    restart: unless-stopped
+#    command: redis-server --appendonly yes --requirepass "${REDIS_PASSWORD}"
+#    environment:
+#      REDIS_PASSWORD: '${REDIS_PASSWORD}'
+#    volumes:
+#      - volume-redis:/data
+#    ports:
+#      - "${REDIS_PORT}:6379"
+#    networks:
+#      - laravel
 
   # Laravel Artisan Commands
   artisan:
@@ -128,7 +130,7 @@ services:
       - laravel
     depends_on:
       - mysql
-      - redis
+#      - redis
     entrypoint: ["php", "/var/www/html/artisan"]
 
   # Cron Scheduler
@@ -146,7 +148,7 @@ services:
     depends_on:
       - php
       - mysql
-      - redis
+#      - redis
 volumes:
   volume-mysql:
     driver: local
