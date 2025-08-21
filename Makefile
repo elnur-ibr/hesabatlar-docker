@@ -26,6 +26,8 @@ logs: ## Show logs from all containers
 # Application operations
 shell: ## Access PHP container shell
 	docker compose exec php sh
+permissions: ## Install PHP dependencies
+	docker compose exec php sh permission.sh
 
 composer: ## Install PHP dependencies
 	docker compose run --rm composer install
@@ -89,26 +91,3 @@ mysql: ## Access MySQL console
 
 redis-cli: ## Access Redis console
 	docker compose exec redis redis-cli -a $(REDIS_PASSWORD)
-
-# Testing
-test: ## Run tests
-	docker compose run --rm php ./vendor/bin/phpunit
-
-# Setup operations
-setup: ## Initial project setup
-	@echo "Setting up the project..."
-	@if [ ! -f .env ]; then cp .env.example .env; echo "Created .env file"; fi
-	docker compose up -d mysql redis
-	@echo "Waiting for databases to be ready..."
-	@sleep 10
-	docker compose run --rm composer install
-	docker compose run --rm artisan key:generate
-	docker compose run --rm artisan migrate
-	docker compose run --rm node npm install
-	docker compose run --rm node npm run dev
-	docker compose up -d
-	@echo "Setup complete! Visit http://localhost"
-
-fresh: ## Fresh installation
-	docker compose down -v
-	make setup
