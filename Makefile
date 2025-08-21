@@ -29,7 +29,7 @@ shell: ## Access PHP container shell
 permissions: ## Install PHP dependencies
 	docker compose exec php sh permission.sh
 
-composer: ## Install PHP dependencies
+composer-install: ## Install PHP dependencies
 	docker compose run --rm composer install
 
 composer-update: ## Update PHP dependencies
