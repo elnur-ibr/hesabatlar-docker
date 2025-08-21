@@ -27,7 +27,7 @@ logs: ## Show logs from all containers
 shell: ## Access PHP container shell
 	docker compose exec php sh
 permissions: ## Install PHP dependencies
-	docker compose exec php sh permission.sh
+	docker compose run --rm artisan sh permission.sh
 
 composer-install: ## Install PHP dependencies
 	docker compose run --rm composer install
