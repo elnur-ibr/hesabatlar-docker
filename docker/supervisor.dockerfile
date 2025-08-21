@@ -14,7 +14,7 @@ RUN mkdir -p /var/log/supervisor \
     && mkdir -p /etc/supervisor/conf.d
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo pdo_mysql exif
+RUN docker-php-ext-install pdo pdo_mysql exif zip
 
 # Install GD extension
 RUN apk add libpng-dev libwebp-dev libjpeg-turbo-dev freetype-dev && \

@@ -9,7 +9,7 @@ RUN sed -i "s/user = www-data/user = ${PHPUSER}/g" /usr/local/etc/php-fpm.d/www.
 RUN sed -i "s/group = www-data/group = ${PHPGROUP}/g" /usr/local/etc/php-fpm.d/www.conf
 
 #php extension
-RUN docker-php-ext-install pdo pdo_mysql exif
+RUN docker-php-ext-install pdo pdo_mysql exif zip
 
 #for gd php extension
 RUN apk add libpng-dev libwebp-dev libjpeg-turbo-dev freetype-dev && \

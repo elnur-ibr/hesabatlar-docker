@@ -4,7 +4,7 @@ ENV COMPOSERUSER=laravel
 ENV COMPOSERGROUP=laravel
 
 #php extension
-RUN docker-php-ext-install pdo pdo_mysql exif
+RUN docker-php-ext-install pdo pdo_mysql exif zip
 
 #for gd php extension
 RUN apk add libpng-dev libwebp-dev libjpeg-turbo-dev freetype-dev && \
