@@ -5,8 +5,8 @@ ENV NGINXGROUP=laravel
 
 RUN mkdir -p /var/www/html/public
 
-ADD ./docker/confs/nginx.conf /etc/nginx/conf.d/default.conf
 ADD ./docker/confs/denylist.conf /etc/nginx/conf.d/denylist.conf
+ADD ./docker/confs/nginx.conf /etc/nginx/conf.d/default.conf
 
 RUN sed -i "s/user www-data/user ${NGINXUSER}/g" /etc/nginx/nginx.conf
 
