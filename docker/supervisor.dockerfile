@@ -13,6 +13,9 @@ RUN mkdir -p /var/log/supervisor \
     && mkdir -p /var/run/supervisor \
     && mkdir -p /etc/supervisor/conf.d
 
+# Install zip dependencies
+RUN apk add --no-cache libzip-dev
+
 # Install PHP extensions
 RUN docker-php-ext-install pdo pdo_mysql exif zip
 

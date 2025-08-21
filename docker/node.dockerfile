@@ -11,8 +11,11 @@ RUN sed -i "s/group = www-data/group = ${PHPGROUP}/g" /usr/local/etc/php-fpm.d/w
 # Install Node.js and npm
 RUN apk add --no-cache nodejs npm
 
-#php extension
-RUN docker-php-ext-install pdo pdo_mysql exif
+# Install zip dependencies
+RUN apk add --no-cache libzip-dev
+
+# Install PHP extensions
+RUN docker-php-ext-install pdo pdo_mysql exif zip
 
 #for gd php extension
 RUN apk add libpng-dev libwebp-dev libjpeg-turbo-dev freetype-dev && \

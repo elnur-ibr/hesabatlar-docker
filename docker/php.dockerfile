@@ -8,7 +8,10 @@ RUN adduser -g ${PHPGROUP} -s /bin/sh -D ${PHPUSER}
 RUN sed -i "s/user = www-data/user = ${PHPUSER}/g" /usr/local/etc/php-fpm.d/www.conf
 RUN sed -i "s/group = www-data/group = ${PHPGROUP}/g" /usr/local/etc/php-fpm.d/www.conf
 
-#php extension
+# Install zip dependencies
+RUN apk add --no-cache libzip-dev
+
+# Install PHP extensions
 RUN docker-php-ext-install pdo pdo_mysql exif zip
 
 #for gd php extension

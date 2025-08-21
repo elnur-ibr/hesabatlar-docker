@@ -3,7 +3,10 @@ FROM composer:2.8.10
 ENV COMPOSERUSER=laravel
 ENV COMPOSERGROUP=laravel
 
-#php extension
+# Install zip dependencies
+RUN apk add --no-cache libzip-dev
+
+# Install PHP extensions
 RUN docker-php-ext-install pdo pdo_mysql exif zip
 
 #for gd php extension
