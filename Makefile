@@ -99,5 +99,6 @@ pull-project:
 	cd ../hesabatlar && git pull
 	make migrate
 	make optimize
+	make composer-install
 	make npm-prod
 	make permissions
