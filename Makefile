@@ -51,7 +51,7 @@ artisan: ## Run artisan commands (usage: make artisan cmd="migrate")
 	docker compose run --rm artisan $(cmd)
 
 migrate: ## Run database migrations
-	docker compose run --rm artisan cmd="migrate --force"
+	docker compose run --rm artisan migrate --force
 
 seed: ## Run database seeders
 	docker compose run --rm artisan db:seed
