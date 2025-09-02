@@ -27,7 +27,7 @@ logs: ## Show logs from all containers
 shell: ## Access PHP container shell
 	docker compose exec php sh
 permissions: ## Install PHP dependencies
-	docker compose run --rm artisan sh permission.sh
+	docker compose exec php sh permission.sh
 
 composer-install: ## Install PHP dependencies
 	docker compose run --rm composer install
@@ -42,6 +42,8 @@ npm-dev: ## Run npm development build
 	docker compose run --rm node npm run dev
 
 npm-prod: ## Run npm production build
+	rm -rf ../hesabatlar/node_modules
+	make npm-install
 	docker compose run --rm node npm run build
 
 # Laravel operations
@@ -49,7 +51,7 @@ artisan: ## Run artisan commands (usage: make artisan cmd="migrate")
 	docker compose run --rm artisan $(cmd)
 
 migrate: ## Run database migrations
-	docker compose run --rm artisan migrate
+	docker compose run --rm artisan cmd="migrate --force"
 
 seed: ## Run database seeders
 	docker compose run --rm artisan db:seed
@@ -91,3 +93,11 @@ mysql: ## Access MySQL console
 
 redis-cli: ## Access Redis console
 	docker compose exec redis redis-cli -a $(REDIS_PASSWORD)
+
+pull-project:
+	cd ../hesabatlar && git reset --hard
+	cd ../hesabatlar && git pull
+	make migrate
+	make optimize
+	make npm-prod
+	make permissions
