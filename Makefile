@@ -29,6 +29,9 @@ shell: ## Access PHP container shell
 permissions: ## Install PHP dependencies
 	docker compose exec php sh permission.sh
 
+nightwatch: ## Install PHP dependencies
+	docker compose exec php php artisan nightwatch:agent
+
 composer-install: ## Install PHP dependencies
 	docker compose run --rm composer install
 
@@ -102,3 +105,4 @@ pull-project:
 	make composer-install
 	make npm-prod
 	make permissions
+	make nightwatch
