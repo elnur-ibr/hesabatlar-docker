@@ -151,7 +151,7 @@ services:
     build:
       context: .
       dockerfile: docker/nightwatch.dockerfile
-    container_name: hesabatlar_cron
+    container_name: hesabatlar_nightwatch
     restart: unless-stopped
     volumes:
       - ./../hesabatlar:/var/www/html
