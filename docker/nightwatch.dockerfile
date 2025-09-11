@@ -27,6 +27,4 @@ RUN apk add --no-cache pcre-dev $PHPIZE_DEPS \
         && docker-php-ext-enable redis.so \
         && apk del pcre-dev ${PHPIZE_DEPS}
 
-COPY ./docker/confs/crontab /etc/crontabs/laravel
-
 CMD ["php", "artisan", "nightwatch:agent", "--listen-on=0.0.0.0:2407"]
