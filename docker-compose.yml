@@ -21,11 +21,11 @@ services:
       - laravel
 
   # PHP Application Container
-  php:
+  laravel-app:
     build:
       context: .
       dockerfile: docker/php.dockerfile
-    container_name: hesabatlar_php
+    container_name: hesabatlar_laravel_app
     restart: unless-stopped
     volumes:
       - ./../hesabatlar:/var/www/html:cached
