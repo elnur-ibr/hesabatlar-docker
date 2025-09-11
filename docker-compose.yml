@@ -147,6 +147,21 @@ services:
       - php
       - mysql
       - redis
+  nightwatch:
+    build:
+      context: .
+      dockerfile: docker/nightwatch.dockerfile
+    container_name: hesabatlar_cron
+    restart: unless-stopped
+    volumes:
+      - ./../hesabatlar:/var/www/html
+    working_dir: /var/www/html
+    networks:
+      - laravel
+    depends_on:
+      - php
+      - mysql
+      - redis
 volumes:
   volume-mysql:
     driver: local
