@@ -25,12 +25,12 @@ logs: ## Show logs from all containers
 
 # Application operations
 shell: ## Access PHP container shell
-	docker compose exec php sh
+	docker compose exec laravel-app sh
 permissions: ## Install PHP dependencies
-	docker compose exec php sh permission.sh
+	docker compose exec laravel-app sh permission.sh
 
 nightwatch-status: ## Install PHP dependencies
-	docker compose exec php php artisan nightwatch:status
+	docker compose exec laravel-app php artisan nightwatch:status
 
 composer-install: ## Install PHP dependencies
 	docker compose run --rm composer install
@@ -104,5 +104,14 @@ pull-project:
 	make optimize
 	make composer-install
 	make npm-prod
+	make permissions
+	make nightwatch-status
+
+pull-project-be:
+	cd ../hesabatlar && git reset --hard
+	cd ../hesabatlar && git pull
+	make migrate
+	make optimize
+	make composer-install
 	make permissions
 	make nightwatch-status
