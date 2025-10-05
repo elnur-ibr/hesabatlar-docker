@@ -72,9 +72,8 @@ cache-clear: ## Clear all caches
 	docker compose run --rm artisan view:clear
 
 optimize: ## Optimize application
-	docker compose run --rm artisan config:cache
-	docker compose run --rm artisan route:cache
-	docker compose run --rm artisan view:cache
+	docker compose run --rm artisan optimize:clear
+	docker compose run --rm artisan optimize
 
 # Queue operations
 horizon-status: ## Check Horizon status
