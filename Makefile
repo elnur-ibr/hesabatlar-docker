@@ -97,8 +97,7 @@ redis-cli: ## Access Redis console
 	docker compose exec redis redis-cli -a $(REDIS_PASSWORD)
 
 pull-project:
-	cd ../hesabatlar && git reset --hard
-	cd ../hesabatlar && git pull
+	cd ../hesabatlar && git reset --hard && git clean -fd && git pull
 	make migrate
 	make optimize
 	make composer-install
