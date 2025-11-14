@@ -30,6 +30,10 @@ services:
     volumes:
       - ./../hesabatlar:/var/www/html:cached
     working_dir: /var/www/html
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+      - 1.1.1.1
     networks:
       - laravel
     depends_on:
@@ -46,6 +50,10 @@ services:
     volumes:
       - ./../hesabatlar:/var/www/html:cached
     working_dir: /var/www/html
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+      - 1.1.1.1
     networks:
       - laravel
     depends_on:
@@ -124,6 +132,10 @@ services:
     volumes:
       - ./../hesabatlar:/var/www/html
     working_dir: /var/www/html
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+      - 1.1.1.1
     networks:
       - laravel
     depends_on:
@@ -141,6 +153,10 @@ services:
     volumes:
       - ./../hesabatlar:/var/www/html
     working_dir: /var/www/html
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+      - 1.1.1.1
     networks:
       - laravel
     depends_on:
@@ -156,6 +172,10 @@ services:
     volumes:
       - ./../hesabatlar:/var/www/html
     working_dir: /var/www/html
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+      - 1.1.1.1
     networks:
       - laravel
     depends_on:
