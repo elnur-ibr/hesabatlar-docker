@@ -75,6 +75,9 @@ optimize: ## Optimize application
 	docker compose run --rm artisan optimize:clear
 	docker compose run --rm artisan optimize
 
+storage-link:
+	docker compose run --rm artisan storage:link
+
 # Queue operations
 horizon-status: ## Check Horizon status
 	docker compose exec horizon supervisorctl status
@@ -99,6 +102,7 @@ redis-cli: ## Access Redis console
 pull-project:
 	cd ../hesabatlar && git reset --hard && git clean -fd && git pull
 	make migrate
+	make storage-link
 	make optimize
 	make composer-install
 	make npm-prod
