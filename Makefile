@@ -101,10 +101,10 @@ redis-cli: ## Access Redis console
 
 pull-project:
 	cd ../hesabatlar && git reset --hard && git clean -fd && git pull
+	make composer-install
 	make migrate
 	make storage-link
 	make optimize
-	make composer-install
 	make npm-prod
 	make permissions
 	make nightwatch-status
